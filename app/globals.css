@@ -1,0 +1,468 @@
+@import "tailwindcss";
+
+:root {
+  --bubblegum-pink: #ffb3d9;
+  --hot-pink: #ff69b4;
+  --light-pink: #ffc0e0;
+  --pastel-pink: #ffd1dc;
+  --candy-pink: #ff85c0;
+  --soft-pink: #ffe4f0;
+  --bg-light: #fff5fa;
+  --text-dark: #4d2d52;
+  --accent-pink: #ff66b2;
+}
+
+@theme inline {
+  --color-background: var(--bg-light);
+  --color-foreground: var(--text-dark);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: linear-gradient(135deg, #fff0f7 0%, #ffd1e8 100%);
+  background-attachment: fixed;
+  color: var(--text-dark);
+  font-family: 'Comic Sans MS', 'Arial', 'Helvetica', sans-serif;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Cute hearts and stars pattern overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff85c0' fill-opacity='0.15'%3E%3Cpath d='M20 40c-6.627 0-12-5.373-12-12 0-6.627 5.373-12 12-12s12 5.373 12 12c0 6.627-5.373 12-12 12zm0-20c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zm40 20c-6.627 0-12-5.373-12-12 0-6.627 5.373-12 12-12s12 5.373 12 12c0 6.627-5.373 12-12 12zm0-20c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zM40 20l-3 6-6.5 1 4.75 4.5-1.25 6.5L40 35l6 3-1.25-6.5L49.5 27l-6.5-1z'/%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* Cute Pink Gradient Text */
+.chrome-text {
+  background: linear-gradient(180deg,
+    #ff85c0 0%,
+    #ff66b2 25%,
+    #ff4da6 50%,
+    #ff66b2 75%,
+    #ff85c0 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(255, 105, 180, 0.3));
+  text-shadow: 0 1px 2px rgba(255, 192, 224, 0.5);
+}
+
+/* Cute Pink Box */
+.industrial-box {
+  background: linear-gradient(135deg, #ffffff 0%, #fff5fa 100%);
+  border: 3px dotted #ff85c0;
+  border-radius: 15px;
+  box-shadow:
+    0 4px 12px rgba(255, 105, 180, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  position: relative;
+}
+
+.industrial-box::before {
+  content: '✨';
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  font-size: 20px;
+  opacity: 0.7;
+}
+
+/* Cute Pink Header */
+.industrial-header {
+  background: linear-gradient(180deg,
+    #ffb3d9 0%,
+    #ff85c0 100%
+  );
+  border-bottom: 3px dashed #ff69b4;
+  border-radius: 10px 10px 0 0;
+  color: #ffffff;
+  padding: 12px 20px;
+  margin: -20px -20px 20px -20px;
+  font-weight: bold;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 2px 8px rgba(255, 105, 180, 0.3);
+  position: relative;
+  text-shadow: 0 1px 2px rgba(77, 45, 82, 0.3);
+}
+
+.industrial-header::after {
+  content: '♡';
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Light pink variant */
+.industrial-box-silver {
+  background: linear-gradient(135deg, #fffafc 0%, #ffe4f0 100%);
+  border: 3px solid #ffc0e0;
+  border-style: dashed;
+  border-radius: 15px;
+}
+
+.industrial-header-silver {
+  background: linear-gradient(180deg,
+    #ffd1e8 0%,
+    #ffb3d9 100%
+  );
+  border-bottom-color: #ff85c0;
+}
+
+/* Cute Pink Button */
+.metal-button {
+  background: linear-gradient(180deg, #ff85c0 0%, #ff69b4 50%, #ff4da6 100%);
+  color: #ffffff;
+  border: 3px solid #ff69b4;
+  border-radius: 20px;
+  padding: 10px 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+  box-shadow:
+    0 4px 10px rgba(255, 105, 180, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  text-shadow: 0 1px 3px rgba(77, 45, 82, 0.3);
+}
+
+.metal-button::before {
+  content: '✿';
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.metal-button:hover {
+  background: linear-gradient(180deg, #ffa3d3 0%, #ff85c0 50%, #ff69b4 100%);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 6px 15px rgba(255, 105, 180, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.6);
+}
+
+.metal-button:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow:
+    0 2px 6px rgba(255, 105, 180, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Light pink button variant */
+.metal-button-silver {
+  background: linear-gradient(180deg, #ffc0e0 0%, #ffb3d9 50%, #ffa3d3 100%);
+  border-color: #ffb3d9;
+  color: #4d2d52;
+}
+
+.metal-button-silver:hover {
+  background: linear-gradient(180deg, #ffd1e8 0%, #ffc0e0 50%, #ffb3d9 100%);
+}
+
+.metal-button-silver::before {
+  content: '★';
+}
+
+/* Links */
+a {
+  color: #ff4da6;
+  text-decoration: none;
+  font-weight: normal;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #ff69b4;
+  text-decoration: underline wavy;
+}
+
+/* Cute Pink Frame */
+.metal-frame {
+  border: 4px double #ff85c0;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 12px rgba(255, 105, 180, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  position: relative;
+  background: linear-gradient(135deg, #fff5fa 0%, #ffe4f0 100%);
+}
+
+.metal-frame::before {
+  content: '♥';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  color: #ff69b4;
+  pointer-events: none;
+}
+
+/* Cute Pink Divider */
+.metal-divider {
+  height: 2px;
+  background: repeating-linear-gradient(90deg,
+    #ff85c0 0px,
+    #ff85c0 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  margin: 20px 0;
+  position: relative;
+}
+
+.metal-divider::after {
+  content: '·•·';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff5fa;
+  padding: 0 10px;
+  color: #ff69b4;
+  font-size: 14px;
+  letter-spacing: 4px;
+}
+
+/* Cute Corner Hearts */
+.corner-brackets {
+  position: relative;
+}
+
+.corner-brackets::before,
+.corner-brackets::after {
+  position: absolute;
+  font-size: 24px;
+  color: #ff85c0;
+  opacity: 0.7;
+}
+
+.corner-brackets::before {
+  content: '♥';
+  top: -15px;
+  left: -10px;
+  transform: rotate(-15deg);
+}
+
+.corner-brackets::after {
+  content: '♥';
+  bottom: -15px;
+  right: -10px;
+  transform: rotate(15deg);
+}
+
+/* Glowing Pink Status Indicator */
+.status-active {
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, #ff85c0 0%, #ff69b4 100%);
+  border: 2px solid #ffb3d9;
+  border-radius: 50%;
+  box-shadow:
+    0 0 15px rgba(255, 105, 180, 0.8),
+    inset 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+/* Cute Pink Tag/Badge */
+.metal-tag {
+  background: linear-gradient(180deg, #ff85c0 0%, #ff69b4 50%, #ff4da6 100%);
+  color: #ffffff;
+  border: 2px solid #ff69b4;
+  border-radius: 15px;
+  padding: 6px 14px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+  box-shadow:
+    0 3px 8px rgba(255, 105, 180, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  text-shadow: 0 1px 2px rgba(77, 45, 82, 0.3);
+}
+
+/* Cute Pink Input Fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  background: #ffffff;
+  border: 2px solid #ffb3d9;
+  border-radius: 12px;
+  color: #4d2d52;
+  padding: 10px 15px;
+  font-family: 'Comic Sans MS', 'Arial', sans-serif;
+  font-size: 13px;
+  transition: all 0.3s;
+  box-shadow:
+    inset 0 2px 6px rgba(255, 105, 180, 0.1),
+    0 2px 8px rgba(255, 105, 180, 0.15);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #ff69b4;
+  box-shadow:
+    inset 0 2px 6px rgba(255, 105, 180, 0.15),
+    0 0 15px rgba(255, 105, 180, 0.4);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 133, 192, 0.5);
+}
+
+/* Cute Pink Scrollbar */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff5fa;
+  border-left: 2px dotted #ffb3d9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff85c0 0%, #ff69b4 50%, #ff4da6 100%);
+  border: 2px solid #ffb3d9;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffa3d3 0%, #ff85c0 50%, #ff69b4 100%);
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 105, 180, 0.3);
+  color: #4d2d52;
+}
+
+/* Cute pink glow for accents */
+.subtle-glow {
+  text-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
+}
+
+/* Cute inset panel */
+.inset-panel {
+  background: linear-gradient(135deg, #fff5fa 0%, #ffe4f0 100%);
+  border: 2px solid #ffc0e0;
+  border-radius: 10px;
+  box-shadow:
+    inset 0 2px 6px rgba(255, 105, 180, 0.1),
+    0 2px 8px rgba(255, 105, 180, 0.15);
+  padding: 16px;
+}
+
+/* Data display (monospace) */
+.data-display {
+  font-family: 'Courier New', monospace;
+  color: #ff4da6;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* Cute section separator */
+.section-separator {
+  width: 100%;
+  height: 24px;
+  background:
+    linear-gradient(90deg, transparent 0%, #ff85c0 50%, transparent 100%),
+    repeating-linear-gradient(90deg,
+      transparent 0px,
+      transparent 5px,
+      #ffb3d9 5px,
+      #ffb3d9 6px
+    );
+  background-size: 100% 1px, 10px 1px;
+  background-position: center;
+  background-repeat: no-repeat, repeat-x;
+  opacity: 0.6;
+}
+
+/* Soft pink pattern */
+.brushed-metal {
+  background:
+    linear-gradient(135deg,
+      rgba(255, 133, 192, 0.1) 0%,
+      rgba(255, 192, 224, 0.1) 50%,
+      rgba(255, 133, 192, 0.1) 100%
+    );
+  background-size: 4px 4px;
+}
+
+/* Heading styles */
+h1, h2, h3, h4, h5, h6 {
+  color: #4d2d52;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+
+/* Subtle pulse animation */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.9; }
+}
+
+.pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+/* Pink Theme Color Utilities */
+.text-pink {
+  color: #4d2d52;
+}
+
+.text-pink-accent {
+  color: #ff69b4;
+}
+
+.text-pink-light {
+  color: #ff85c0;
+}
+
+.text-pink-bright {
+  color: #ff4da6;
+}
+
+.text-pink-pastel {
+  color: #ffc0e0;
+}
+
+.bg-pink-accent {
+  background-color: #ff69b4;
+}
+
+.bg-pink-light {
+  background-color: #ff85c0;
+}
+
+.bg-pink-pastel {
+  background-color: #ffb3d9;
+}

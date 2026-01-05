@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { format } from 'date-fns';
 
-export const revalidate = 60; // Revalidate every 60 seconds
+export const revalidate = 30; // Revalidate every 30 seconds
 
 async function getBlogPosts() {
   const { data, error } = await supabase

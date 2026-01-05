@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import EmojiReact from '@/components/EmojiReact';
 
-export const revalidate = 60;
+export const revalidate = 30; // Revalidate every 30 seconds
 
 async function getPost(slug: string) {
   const { data, error } = await supabase

@@ -35,6 +35,23 @@ export default function EmojiReact({
   const handleReaction = async (reactionId: string) => {
     if (isSubmitting || userReactions.includes(reactionId)) return;
 
+    // Optimistic update - update UI immediately
+    setReactions((prev) => ({
+      ...prev,
+      [reactionId]: (prev[reactionId] || 0) + 1,
+    }));
+
+    // Store in localStorage immediately
+    const storedReactions = JSON.parse(
+      localStorage.getItem("reactions") || "{}"
+    );
+    if (!storedReactions[postId]) {
+      storedReactions[postId] = [];
+    }
+    storedReactions[postId].push(reactionId);
+    localStorage.setItem("reactions", JSON.stringify(storedReactions));
+    setUserReactions(storedReactions[postId]);
+
     setIsSubmitting(true);
 
     try {
@@ -49,26 +66,41 @@ export default function EmojiReact({
         }),
       });
 
-      if (response.ok) {
-        // Update the UI
+      if (!response.ok) {
+        // Revert optimistic update if API call failed
         setReactions((prev) => ({
           ...prev,
-          [reactionId]: (prev[reactionId] || 0) + 1,
+          [reactionId]: Math.max(0, (prev[reactionId] || 0) - 1),
         }));
 
-        // Store in localStorage
-        const storedReactions = JSON.parse(
+        // Remove from localStorage
+        const reactions = JSON.parse(
           localStorage.getItem("reactions") || "{}"
         );
-        if (!storedReactions[postId]) {
-          storedReactions[postId] = [];
+        if (reactions[postId]) {
+          reactions[postId] = reactions[postId].filter(
+            (r: string) => r !== reactionId
+          );
         }
-        storedReactions[postId].push(reactionId);
-        localStorage.setItem("reactions", JSON.stringify(storedReactions));
-        setUserReactions(storedReactions[postId]);
+        localStorage.setItem("reactions", JSON.stringify(reactions));
+        setUserReactions(reactions[postId] || []);
       }
     } catch (error) {
       console.error("Error submitting reaction:", error);
+      // Revert optimistic update on error
+      setReactions((prev) => ({
+        ...prev,
+        [reactionId]: Math.max(0, (prev[reactionId] || 0) - 1),
+      }));
+
+      const reactions = JSON.parse(localStorage.getItem("reactions") || "{}");
+      if (reactions[postId]) {
+        reactions[postId] = reactions[postId].filter(
+          (r: string) => r !== reactionId
+        );
+      }
+      localStorage.setItem("reactions", JSON.stringify(reactions));
+      setUserReactions(reactions[postId] || []);
     } finally {
       setIsSubmitting(false);
     }

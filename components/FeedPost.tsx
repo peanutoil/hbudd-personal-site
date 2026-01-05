@@ -30,6 +30,18 @@ export default function FeedPost({ post, initialReactions }: FeedPostProps) {
   const handleHeart = async () => {
     if (isSubmitting || hasReacted) return;
 
+    // Optimistic update - update UI immediately
+    setHasReacted(true);
+    setHearts((prev) => prev + 1);
+
+    // Store in localStorage immediately
+    const reactions = JSON.parse(localStorage.getItem('reactions') || '{}');
+    if (!reactions[post.id]) {
+      reactions[post.id] = [];
+    }
+    reactions[post.id].push('❤️');
+    localStorage.setItem('reactions', JSON.stringify(reactions));
+
     setIsSubmitting(true);
 
     try {
@@ -44,20 +56,29 @@ export default function FeedPost({ post, initialReactions }: FeedPostProps) {
         }),
       });
 
-      if (response.ok) {
-        setHasReacted(true);
-        setHearts((prev) => prev + 1);
+      if (!response.ok) {
+        // Revert optimistic update if API call failed
+        setHasReacted(false);
+        setHearts((prev) => Math.max(0, prev - 1));
 
-        // Store in localStorage
+        // Remove from localStorage
         const reactions = JSON.parse(localStorage.getItem('reactions') || '{}');
-        if (!reactions[post.id]) {
-          reactions[post.id] = [];
+        if (reactions[post.id]) {
+          reactions[post.id] = reactions[post.id].filter((r: string) => r !== '❤️');
         }
-        reactions[post.id].push('❤️');
         localStorage.setItem('reactions', JSON.stringify(reactions));
       }
     } catch (error) {
       console.error('Error submitting reaction:', error);
+      // Revert optimistic update on error
+      setHasReacted(false);
+      setHearts((prev) => Math.max(0, prev - 1));
+
+      const reactions = JSON.parse(localStorage.getItem('reactions') || '{}');
+      if (reactions[post.id]) {
+        reactions[post.id] = reactions[post.id].filter((r: string) => r !== '❤️');
+      }
+      localStorage.setItem('reactions', JSON.stringify(reactions));
     } finally {
       setIsSubmitting(false);
     }

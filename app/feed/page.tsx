@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabase";
 import { format, formatDistanceToNow } from "date-fns";
 import FeedPost from "@/components/FeedPost";
 
-export const revalidate = 30; // Revalidate every 30 seconds
+export const revalidate = 15; // Revalidate every 15 seconds
 
 async function getFeedPosts() {
   const { data, error } = await supabase
